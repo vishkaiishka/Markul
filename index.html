@@ -29,7 +29,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* ================= ЛИСТЬЯ (уменьшено, GPU-friendly) ================= */
+/* ================= ЛИСТЬЯ ================= */
 .leaves{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;contain:strict}
 .leaf{position:absolute;top:-40px;animation:fall linear infinite}
 @keyframes fall{
@@ -77,8 +77,6 @@ body{
 /* ================= КОНТЕЙНЕР ================= */
 .container{max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:3}
 section{padding:100px 0;position:relative}
-
-/* content-visibility — не рендерить секции вне экрана */
 .sec-lazy{content-visibility:auto;contain-intrinsic-size:auto 700px}
 
 .section-header.center{text-align:center}
@@ -320,7 +318,7 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
 <section class="stats sec-lazy" style="padding:50px 0">
   <div class="container">
     <div class="stats-grid">
-      <div class="reveal"><div class="stat-num" data-count="120">0</div><div class="stat-label">Участников</div></div>
+      <div class="reveal"><div class="stat-num" data-count="30">0</div><div class="stat-label">Участников</div></div>
       <div class="reveal"><div class="stat-num" data-count="10">0</div><div class="stat-label">Тем для общения</div></div>
       <div class="reveal"><div class="stat-num" data-count="28">0</div><div class="stat-label">Пунктов правил</div></div>
       <div class="reveal"><div class="stat-num" data-count="24">0</div><div class="stat-label">Часа онлайн</div></div>
@@ -545,7 +543,7 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
 <button class="to-top" id="toTop" aria-label="Наверх">↑</button>
 
 <script>
-/* ЛИСТЬЯ — уменьшено до 8-10, только transform, без will-change */
+/* ЛИСТЬЯ */
 (function(){
   var c=document.getElementById('leaves');
   if(!c)return;
@@ -568,7 +566,7 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
   c.appendChild(frag);
 })();
 
-/* NAV + ACTIVE + TO-TOP — throttled через rAF */
+/* NAV + ACTIVE + TO-TOP */
 (function(){
   var nav=document.getElementById('nav');
   var navLinks=document.getElementById('navLinks');
@@ -582,7 +580,6 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
     var y=window.scrollY;
     if(y>40) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
     if(y>600) toTop.classList.add('show'); else toTop.classList.remove('show');
-    // active link
     var cur='';
     for(var i=0;i<sections.length;i++){
       var s=sections[i];
@@ -611,7 +608,7 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
   toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
 })();
 
-/* REVEAL — один общий observer */
+/* REVEAL */
 (function(){
   var els=document.querySelectorAll('.reveal');
   if(!('IntersectionObserver' in window)){
@@ -629,7 +626,7 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
   els.forEach(function(el){io.observe(el)});
 })();
 
-/* СЧЁТЧИКИ — один observer */
+/* СЧЁТЧИКИ */
 (function(){
   var counters=document.querySelectorAll('.stat-num[data-count]');
   if(!counters.length) return;
@@ -651,7 +648,7 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
   counters.forEach(function(c){io.observe(c)});
 })();
 
-/* ПРАВИЛА — поиск + фильтр */
+/* ПРАВИЛА */
 (function(){
   var searchInput=document.getElementById('rulesSearch');
   var rows=[].slice.call(document.querySelectorAll('#rulesTable tbody tr'));
@@ -699,4 +696,4 @@ footer{padding:60px 24px 30px;border-top:1px solid var(--border);background:rgba
 </script>
 
 </body>
-  </html>
+          </html>
